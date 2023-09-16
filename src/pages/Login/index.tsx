@@ -15,6 +15,7 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 const signInSchema = yup.object().shape({
 	email: yup.string().required("Email obrigatório").email("Email inválido"),
@@ -29,6 +30,8 @@ interface SignInData {
 export const Login = () => {
 	const [loading, setLoading] = useState(false);
 
+	const { signIn } = useAuth();
+
 	const {
 		formState: { errors },
 		register,
@@ -37,7 +40,12 @@ export const Login = () => {
 		resolver: yupResolver(signInSchema),
 	});
 
-	const handleSignIn = (data: SignInData) => console.log(data);
+	const handleSignIn = (data: SignInData) => {
+		setLoading(true);
+		signIn(data)
+			.then((_) => setLoading(false))
+			.catch((err) => setLoading(false));
+	};
 
 	return (
 		<Flex
@@ -69,7 +77,7 @@ export const Login = () => {
 						O jeito fácil, grátis
 					</Heading>
 					<Text maxW="350px">
-						Flex ível e atrativo de gerenciar
+						Flexível e atrativo de gerenciar
 						<p>seus projetos em uma única plataforma</p>
 					</Text>
 				</Grid>
