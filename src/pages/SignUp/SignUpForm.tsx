@@ -85,7 +85,7 @@ export const SignUpForm = ({
 					label="Confirmação de senha"
 					error={errors.confirm_password}
 					type="password"
-					{...register("password")}
+					{...register("confirm_password")}
 				/>
 			</VStack>
 			<Button
