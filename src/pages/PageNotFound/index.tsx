@@ -9,7 +9,7 @@ export const PageNotFound = () => {
 			padding={["10px 15px", "10px 15px", "0", "0"]}
 			alignItems="center"
 			justifyContent="space-evenly"
-			height={["auto", "auto", "100vh", "100vh"]}
+			height="100vh"
 			flexDir={["column-reverse", "column-reverse", "row", "row"]}
 		>
 			<Box>
