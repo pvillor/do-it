@@ -12,8 +12,14 @@ export const CardSkeleton = ({
 
 	return (
 		<>
-			{howMany.map((_) => (
-				<Skeleton {...rest} speed={1} startColor="gray.100" endColor="gray.200">
+			{howMany.map((e) => (
+				<Skeleton
+					{...rest}
+					speed={1}
+					startColor="gray.100"
+					endColor="gray.200"
+					key={howMany.indexOf(e)}
+				>
 					<Box w="300px" h="150px" padding="7" />
 				</Skeleton>
 			))}

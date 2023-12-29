@@ -55,19 +55,22 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 	const [notFound, setNotFound] = useState(false);
 	const [taskNotFound, setTaskNotFound] = useState("");
 
-	const loadTasks = useCallback(async (userId: string, accessToken: string) => {
-		try {
-			const response = await api.get(`/tasks?userId=${userId}`, {
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-				},
-			});
+	const loadTasks = useCallback(
+		async (userId: string, accessToken: string) => {
+			try {
+				const response = await api.get(`/tasks?userId=${userId}`, {
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				});
 
-			setTasks(response.data);
-		} catch (err) {
-			console.log(err);
-		}
-	}, []);
+				setTasks(response.data);
+			} catch (err) {
+				console.log(err);
+			}
+		},
+		[tasks]
+	);
 
 	const createTask = useCallback(
 		async (data: Omit<Task, "id">, accessToken: string) => {
@@ -82,7 +85,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 				)
 				.catch((err) => console.log(err));
 		},
-		[]
+		[tasks]
 	);
 
 	const deleteTask = useCallback(
@@ -99,7 +102,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 				})
 				.catch((err) => console.log(err));
 		},
-		[]
+		[tasks]
 	);
 
 	const updateTask = useCallback(
@@ -125,7 +128,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 				})
 				.catch((err) => console.log(err));
 		},
-		[]
+		[tasks]
 	);
 
 	const searchTask = useCallback(
@@ -147,7 +150,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 			setNotFound(false);
 			setTasks(response.data);
 		},
-		[]
+		[tasks]
 	);
 
 	return (

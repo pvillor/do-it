@@ -34,7 +34,7 @@ export const NotFound = ({
 				<Header />
 				<SearchBox />
 				<Center mt="4" textAlign="center" display="flex" flexDir="column">
-					<Heading size="lg"> Não encontramos resultaos para:</Heading>
+					<Heading size="lg"> Não encontramos resultados para:</Heading>
 					<Text fontSize="xl" color="gray.300" fontWeight="bold">
 						{taskNotFound}
 					</Text>

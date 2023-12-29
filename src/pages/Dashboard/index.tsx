@@ -37,12 +37,14 @@ export const Dashboard = () => {
 	};
 
 	if (notFound) {
-		<NotFound
-			isTaskDetailOpen={isTaskDetailOpen}
-			onTaskDetailClose={onTaskDetailClose}
-			selectedTask={selectedTask}
-			taskNotFound={taskNotFound}
-		/>;
+		return (
+			<NotFound
+				isTaskDetailOpen={isTaskDetailOpen}
+				onTaskDetailClose={onTaskDetailClose}
+				selectedTask={selectedTask}
+				taskNotFound={taskNotFound}
+			/>
+		);
 	}
 
 	return (
