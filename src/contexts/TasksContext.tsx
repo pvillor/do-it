@@ -30,6 +30,13 @@ interface TaskContextData {
 		userId: string,
 		accessToken: string
 	) => Promise<void>;
+	searchTask: (
+		taskTitle: string,
+		accessToken: string,
+		userId: string
+	) => Promise<void>;
+	notFound: boolean;
+	taskNotFound: string;
 }
 
 const TaskContext = createContext<TaskContextData>({} as TaskContextData);
@@ -45,6 +52,8 @@ const useTasks = () => {
 
 const TaskProvider = ({ children }: TaskProviderProps) => {
 	const [tasks, setTasks] = useState<Task[]>([]);
+	const [notFound, setNotFound] = useState(false);
+	const [taskNotFound, setTaskNotFound] = useState("");
 
 	const loadTasks = useCallback(async (userId: string, accessToken: string) => {
 		try {
@@ -119,9 +128,40 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 		[]
 	);
 
+	const searchTask = useCallback(
+		async (taskTitle: string, accessToken: string, userId: string) => {
+			const response = await api.get(
+				`/tasks?title_like=${taskTitle}&userId=${userId}`,
+				{
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
+				}
+			);
+
+			if (!response.data.length) {
+				setTaskNotFound(taskTitle);
+				setNotFound(true);
+			}
+
+			setNotFound(false);
+			setTasks(response.data);
+		},
+		[]
+	);
+
 	return (
 		<TaskContext.Provider
-			value={{ tasks, createTask, loadTasks, deleteTask, updateTask }}
+			value={{
+				tasks,
+				createTask,
+				loadTasks,
+				deleteTask,
+				updateTask,
+				searchTask,
+				notFound,
+				taskNotFound,
+			}}
 		>
 			{children}
 		</TaskContext.Provider>

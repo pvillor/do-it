@@ -29,7 +29,7 @@ export const Dashboard = () => {
 
 	useEffect(() => {
 		loadTasks(user.id, accessToken).then((res) => setLoading(false));
-	}, [tasks]);
+	}, []);
 
 	const handleClick = (task: Task) => {
 		setSelectedTask(task);
@@ -54,7 +54,7 @@ export const Dashboard = () => {
 					mt="8"
 				>
 					{tasks.map((task) => (
-						<Card task={task} onClick={handleClick} />
+						<Card task={task} onClick={handleClick} key={task.id} />
 					))}
 				</Grid>
 			</Box>
